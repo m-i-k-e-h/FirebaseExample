@@ -13,11 +13,7 @@ angular.module('firebaseExample', ['ionic', 'firebase', 'firebaseExample.control
 
         $rootScope.show = function(text) {
             $rootScope.loading = $ionicLoading.show({
-                content: text ? text : 'Loading..',
-                animation: 'fade-in',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
+                template: text ? text : 'Loading..'
             });
         };
 
