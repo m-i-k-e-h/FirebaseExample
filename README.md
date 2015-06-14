@@ -11,4 +11,5 @@ Install Ionic, clone this project, and run it!
 > npm install
 > gulp install
 > ionic state restore
+> gulp test
 ```
