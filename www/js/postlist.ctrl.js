@@ -1,7 +1,7 @@
 angular.module('firebaseExample.controllers')
 
-.controller('myListCtrl', function($rootScope, $scope, $window, $ionicModal, Posts) {
-  $rootScope.show("Please wait... Processing");
+.controller('myListCtrl', function($scope, $window, $ionicModal, Posts, Notify) {
+  Notify.show("Please wait... Processing");
   $scope.list = [];
 
   Posts.registerPostObserver(function(snapshot) {
@@ -19,7 +19,7 @@ angular.module('firebaseExample.controllers')
     } else {
       $scope.noData = false;
     }
-    $rootScope.hide();
+    Notify.hide();
   });
 
 
@@ -32,14 +32,14 @@ angular.module('firebaseExample.controllers')
   };
 
   $scope.deleteItem = function(key) {
-    $rootScope.show("Please wait... Deleting from List");
+    Notify.show("Please wait... Deleting from List");
     Posts.removePost(key, function(error) {
       if (error) {
-        $rootScope.hide();
-        $rootScope.notify('Oops! something went wrong. Try again later');
+        Notify.hide();
+        Notify.notify('Oops! something went wrong. Try again later');
       } else {
-        $rootScope.hide();
-        $rootScope.notify('Successfully deleted');
+        Notify.hide();
+        Notify.notify('Successfully deleted');
       }
     });
   };

@@ -1,35 +1,37 @@
 angular.module('firebaseExample.controllers')
-    .controller('SignInCtrl',
-        function($scope, $rootScope, $window, Posts) {
+.controller('SignInCtrl',
+function($scope, $window, Posts, Notify) {
 
-            $scope.user = {
-                email: "",
-                password: ""
-            };
-            $scope.validateUser = function() {
-                $rootScope.show('Please wait.. Authenticating');
-                var email = this.user.email;
-                var password = this.user.password;
-                if (!email || !password) {
-                    $rootScope.notify("Please enter valid credentials");
-                    return false;
-                }
+  $scope.user = {
+    email: "",
+    password: ""
+  };
+  $scope.validateUser = function() {
+    var email = this.user.email;
+    var password = this.user.password;
+    if (!email || !password) {
+      Notify.notify("Please enter valid credentials");
+      return false;
+    }
+    Notify.show('Please wait.. Authenticating');
 
-                Posts.login(email, password).then(function(user) {
-                    $rootScope.hide();
-                    $window.location.href = ('#/posts/list');
-                }, function(error) {
-                    $rootScope.hide();
-                    if (error.code == 'INVALID_EMAIL') {
-                        $rootScope.notify('Invalid Email Address');
-                    } else if (error.code == 'INVALID_PASSWORD') {
-                        $rootScope.notify('Invalid Password');
-                    } else if (error.code == 'INVALID_USER') {
-                        $rootScope.notify('Invalid User');
-                    } else {
-                        $rootScope.notify('Oops something went wrong. Please try again later');
-                    }
-                });
-            }
+    Posts.login(email, password, function(error, user) {
+      if(!error) {
+        Notify.hide();
+        $window.location.href = ('#/posts/list');
+      } else {
+        Notify.hide();
+        if (error.code == 'INVALID_EMAIL') {
+          Notify.notify('Invalid Email Address');
+        } else if (error.code == 'INVALID_PASSWORD') {
+          Notify.notify('Invalid Password');
+        } else if (error.code == 'INVALID_USER') {
+          Notify.notify('Invalid User');
+        } else {
+          Notify.notify('Oops something went wrong. Please try again later');
         }
-    )
+      }
+    });
+  }
+}
+)

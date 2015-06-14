@@ -1,6 +1,6 @@
 angular.module('firebaseExample', ['ionic', 'firebase', 'firebaseExample.controllers', 'firebaseExample.services'])
 
-.run(function($ionicPlatform, $rootScope, $window, $ionicLoading) {
+.run(function($ionicPlatform, $window, $ionicLoading) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -10,23 +10,6 @@ angular.module('firebaseExample', ['ionic', 'firebase', 'firebaseExample.control
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-
-        $rootScope.show = function(text) {
-            $rootScope.loading = $ionicLoading.show({
-                template: text ? text : 'Loading..'
-            });
-        };
-
-        $rootScope.hide = function() {
-            $ionicLoading.hide();
-        };
-
-        $rootScope.notify = function(text) {
-            $rootScope.show(text);
-            $window.setTimeout(function() {
-                $rootScope.hide();
-            }, 1999);
-        };
     });
 })
 
@@ -73,3 +56,4 @@ angular.module('firebaseExample', ['ionic', 'firebase', 'firebaseExample.control
 });
 
 angular.module('firebaseExample.controllers', []);
+angular.module('firebaseExample.services', []);

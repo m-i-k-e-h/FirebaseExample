@@ -1,30 +1,32 @@
-angular.module('firebaseExample.services', [])
+angular.module('firebaseExample.services')
 
-.factory('Posts', function($firebaseAuth, $firebase) {
+.factory('Posts', function($firebase) {
 
   var baseUrl = 'https://zukfirebaseexample.firebaseio.com/';
   var postsUrl = baseUrl + 'posts/'
-  var fbAuthRef = new Firebase(baseUrl);
-  var fbAuth = $firebaseAuth(fbAuthRef);
+  var firebaseRef = new Firebase(baseUrl);
   var fbEmail = null;
 
   return {
-    login: function(email, password) {
+    login: function(email, password, callback) {
       fbEmail = email;
-      return fbAuth.$login('password', {
+      return firebaseRef.authWithPassword({
         email: email,
         password: password
-      });
+      }, callback);
     },
 
     logout: function() {
       fbEmail = null;
-      fbAuth.$logout();
+      firebaseRef.unauth();
     },
 
     createUser: function(email, password, callback) {
       fbEmail = email;
-      fbAuth.$createUser(email, password, callback);
+      firebaseRef.createUser({
+        email: email,
+        password: password
+      }, callback);
     },
 
     createPost: function(post) {

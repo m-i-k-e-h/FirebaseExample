@@ -1,6 +1,6 @@
 angular.module('firebaseExample.controllers')
 
-.controller('newCtrl', function($rootScope, $scope, $window, Posts) {
+.controller('newCtrl', function($scope, $window, Posts, Notify) {
     $scope.data = {
         item: ""
     };
@@ -13,12 +13,11 @@ angular.module('firebaseExample.controllers')
         var item = this.data.item;
         if (!item) return;
         $scope.modal.hide();
-        $rootScope.show();
+        Notify.show();
 
-        $rootScope.show("Please wait... Creating new");
+        Notify.show("Please wait... Creating new");
 
         Posts.createPost(item);
-        $rootScope.hide();
-
+        Notify.hide();
     };
 })
