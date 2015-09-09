@@ -1,10 +1,11 @@
 angular.module('firebaseExample.services')
 
-.factory('Posts', function($firebase) {
+.factory('Posts', function() {
 
   var baseUrl = 'https://zukfirebaseexample.firebaseio.com/';
   var postsUrl = baseUrl + 'posts/'
   var firebaseRef = new Firebase(baseUrl);
+  var postListRef = new Firebase(postsUrl);
   var fbEmail = null;
 
   return {
@@ -35,19 +36,24 @@ angular.module('firebaseExample.services')
         created: Date.now(),
         user: fbEmail
       };
-
-      var postRef = new Firebase(postsUrl);
-      $firebase(postRef).$add(form);
+      postListRef.push(form);
     },
 
     removePost: function(key, callback) {
-      var postListRef = new Firebase(postsUrl);
       postListRef.child(key).remove(callback);
     },
 
     registerPostObserver: function(observer) {
-      var postListRef = new Firebase(postsUrl);
       postListRef.on('value', observer);
+    },
+
+    // For testing
+    baseRef: function() {
+      return firebaseRef;
+    },
+
+    postRef: function() {
+      return postListRef;
     }
   };
 });

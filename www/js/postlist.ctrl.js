@@ -1,18 +1,16 @@
 angular.module('firebaseExample.controllers')
 
-.controller('myListCtrl', function($scope, $window, $ionicModal, Posts, Notify) {
+.controller('PostListCtrl', function($scope, $window, $ionicModal, Posts, Notify) {
   Notify.show("Please wait... Processing");
   $scope.list = [];
 
   Posts.registerPostObserver(function(snapshot) {
     var data = snapshot.val();
     $scope.list = [];
-    for (var key in data) {
-      if (data.hasOwnProperty(key)) {
-        data[key].key = key;
-        $scope.list.push(data[key]);
-      }
-    }
+
+    _.forEach(data, function(val, key) {
+      $scope.list.push(_.assign(val, {key: key}));
+    });
 
     if ($scope.list.length == 0) {
       $scope.noData = true;
@@ -21,7 +19,6 @@ angular.module('firebaseExample.controllers')
     }
     Notify.hide();
   });
-
 
   $ionicModal.fromTemplateUrl('templates/newItem.html', function(modal) {
     $scope.newTemplate = modal;

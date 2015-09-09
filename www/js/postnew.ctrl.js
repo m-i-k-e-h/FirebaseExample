@@ -1,6 +1,6 @@
 angular.module('firebaseExample.controllers')
 
-.controller('newCtrl', function($scope, $window, Posts, Notify) {
+.controller('NewPostCtrl', function($scope, $window, Posts, Notify) {
     $scope.data = {
         item: ""
     };

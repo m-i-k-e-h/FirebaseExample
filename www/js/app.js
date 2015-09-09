@@ -48,7 +48,7 @@ angular.module('firebaseExample', ['ionic', 'firebase', 'firebaseExample.control
             views: {
                 'posts-list': {
                     templateUrl: 'templates/posts-list.html',
-                    controller: 'myListCtrl'
+                    controller: 'PostListCtrl'
                 }
             }
         })
