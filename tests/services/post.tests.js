@@ -21,7 +21,7 @@ describe('PostServiceTest', function() {
     expect(_.values(receivedData).length).toEqual(1);
     expect(_.values(receivedData)[0].item).toEqual('This is a post');
     expect(_.values(receivedData)[0].user).toEqual(null); // As not logged in
-    expect(_.values(receivedData)[0].created > Date.now()-5 && _.values(receivedData)[0].created < Date.now()+5).toBeTruthy();
+    expect(_.values(receivedData)[0].created > Date.now()-15 && _.values(receivedData)[0].created < Date.now()+15).toBeTruthy();
 
     postService.removePost(_.keys(receivedData)[0]);
     postService.postRef().flush();
