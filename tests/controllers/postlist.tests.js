@@ -61,7 +61,7 @@ describe('PostListControllerTest', function() {
 
   it('should show template modal on new post', function() {
     spyOn(mockModal, 'show');
-    myScope.newTask();
+    myScope.newPost();
     expect(mockModal.show).toHaveBeenCalled();
   });
 
@@ -69,7 +69,7 @@ describe('PostListControllerTest', function() {
     spyOn(mockNotify, 'show');
     spyOn(mockNotify, 'hide');
     spyOn(mockNotify, 'notify');
-    myScope.deleteItem("A Key");
+    myScope.deletePost("A Key");
     expect(mockNotify.show).toHaveBeenCalledWith("Please wait... Deleting from List");
     expect(mockPostsKey).toEqual("A Key");
     expect(mockNotify.hide).toHaveBeenCalled();
@@ -81,7 +81,7 @@ describe('PostListControllerTest', function() {
     spyOn(mockNotify, 'hide');
     spyOn(mockNotify, 'notify');
     mockPostsRemoveResult = "Error";
-    myScope.deleteItem("A Key");
+    myScope.deletePost("A Key");
     expect(mockNotify.show).toHaveBeenCalledWith("Please wait... Deleting from List");
     expect(mockPostsKey).toEqual("A Key");
     expect(mockNotify.hide).toHaveBeenCalled();

@@ -24,11 +24,11 @@ angular.module('firebaseExample.controllers')
     $scope.newTemplate = modal;
   });
 
-  $scope.newTask = function() {
+  $scope.newPost = function() {
     $scope.newTemplate.show();
   };
 
-  $scope.deleteItem = function(key) {
+  $scope.deletePost = function(key) {
     Notify.show("Please wait... Deleting from List");
     Posts.removePost(key, function(error) {
       if (error) {
